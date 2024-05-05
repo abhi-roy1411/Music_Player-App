@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         retrofitData.enqueue(object : Callback<MyData?> {
             override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
                 val dataList = response.body()?.data!!
-//                val textView = findViewById<TextView>(R.id.helloText)
-//                textView.text = dataList.toString()
 
                 myAdapter= MyAdapter(this@MainActivity, dataList)
                 myRecyclerView.adapter=myAdapter

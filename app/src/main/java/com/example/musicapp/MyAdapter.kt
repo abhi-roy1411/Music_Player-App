@@ -5,7 +5,6 @@ import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -17,8 +16,8 @@ class MyAdapter(val context: Activity, val dataList: List<Data>):
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val image: ImageView
         val title: TextView
-        val play: ImageButton
-        val pause: ImageButton
+        val play: ImageView
+        val pause: ImageView
 
         init{
             image= itemView.findViewById(R.id.musicImage)
@@ -44,7 +43,7 @@ class MyAdapter(val context: Activity, val dataList: List<Data>):
 
         val mediaPlayer= MediaPlayer.create(context, currentData.preview.toUri())
         holder.title.text= currentData.title
-        Picasso.get().load(currentData.album.cover).into(holder.image);
+        Picasso.get().load(currentData.album.cover).into(holder.image)
 
         holder.play.setOnClickListener{
             mediaPlayer.start()
