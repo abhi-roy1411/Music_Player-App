@@ -38,7 +38,6 @@
         android:clickable="true"
         android:layout_weight="1"
         android:focusable="true">
-
     </ImageView>
 
     <ImageView
