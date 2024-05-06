@@ -2,6 +2,8 @@ package com.example.musicapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,11 +28,14 @@ class MainActivity : AppCompatActivity() {
             .build()
             .create(ApiInterface::class.java)
 
+        val progress = findViewById<ProgressBar>(R.id.progressBar)
+        progress.visibility=ProgressBar.VISIBLE
+
         val retrofitData = retrofitBuilder.getData("eminem")
         retrofitData.enqueue(object : Callback<MyData?> {
             override fun onResponse(call: Call<MyData?>, response: Response<MyData?>) {
                 val dataList = response.body()?.data!!
-
+                progress.visibility = ProgressBar.INVISIBLE
                 myAdapter= MyAdapter(this@MainActivity, dataList)
                 myRecyclerView.adapter=myAdapter
                 myRecyclerView.layoutManager= LinearLayoutManager(this@MainActivity)
@@ -38,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MyData?>, t: Throwable) {
+                progress.visibility = ProgressBar.INVISIBLE
+                Toast.makeText(this@MainActivity,"Something went wrong!",Toast.LENGTH_SHORT).show()
                 Log.d("TAG : onFailure", "onFailure: " + t.message)
             }
 
